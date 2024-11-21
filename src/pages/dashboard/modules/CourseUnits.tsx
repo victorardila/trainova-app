@@ -93,7 +93,7 @@ const CourseUnits = () => {
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
           <h1 className="text-2xl font-semibold text-gray-900">
-            Estructura del Curso
+            Unidades por curso
           </h1>
           <p className="mt-2 text-sm text-gray-700">
             Organiza el contenido y estructura de tus cursos
