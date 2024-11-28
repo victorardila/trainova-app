@@ -38,6 +38,7 @@ const CourseManagement = () => {
   ]);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(""); // Estado para la búsqueda
 
   // Define the form config for a new course
   const formConfig: FormField[] = [
@@ -77,6 +78,11 @@ const CourseManagement = () => {
     setCourses([...courses, newCourse]);
   };
 
+  // Filtrar los cursos según la búsqueda
+  const filteredCourses = courses.filter((course) =>
+    course.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div>
       <div className="sm:flex sm:items-center">
@@ -101,7 +107,9 @@ const CourseManagement = () => {
       </div>
 
       <div className="mt-8">
-        <div className="sm:flex sm:items-center">
+        <div className="sm:flex sm:items-center sm:justify-between">
+          {" "}
+          {/* Añadir justify-between */}
           <div className="relative flex-1 max-w-lg">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <Search className="h-5 w-5 text-gray-400" />
@@ -110,7 +118,16 @@ const CourseManagement = () => {
               type="text"
               className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
               placeholder="Buscar cursos..."
+              value={searchQuery} // Vincula el valor de la búsqueda
+              onChange={(e) => setSearchQuery(e.target.value)} // Actualiza el estado de la búsqueda
             />
+          </div>
+          {/* Total de cursos al lado derecho de la barra */}
+          <div className="ml-4 text-sm font-semibold text-gray-700">
+            Total de Cursos:
+            <span className="text-gray-900 ml-1 font-awakenning text-4xl">
+              {filteredCourses.length}
+            </span>
           </div>
         </div>
 
@@ -139,7 +156,7 @@ const CourseManagement = () => {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-200 bg-white">
-                    {courses.map((course) => (
+                    {filteredCourses.map((course) => (
                       <tr key={course.id}>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-900">
                           {course.name}
